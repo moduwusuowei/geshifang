@@ -307,10 +307,10 @@ GitHub 地址在项目说明里。
 
 *格式坊 · 本地 Markdown 转公众号排版工具*
 
-*开源 · MIT · 纯前端 · 无需联网*
+
 
 **Addr:** https://github.com/moduwusuowei/geshifang.git
 
-
+*开源 · MIT · 纯前端 · 无需联网*
 
 喜欢就添个star，为我的创作提供更强的动力......

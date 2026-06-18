@@ -667,12 +667,25 @@ document.addEventListener('DOMContentLoaded', () => {
   $('gs-copy-btn')?.addEventListener('click', () => {
     const html = preview.innerHTML
     if (!html || !html.trim()) { alert('暂无排版结果可复制'); return }
-    navigator.clipboard.writeText(html).then(() => {
+    const text = preview.textContent
+    const htmlBlob = new Blob([html], { type: 'text/html' })
+    const textBlob = new Blob([text], { type: 'text/plain' })
+    navigator.clipboard.write([
+      new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })
+    ]).then(() => {
       const btn = $('gs-copy-btn')
       const orig = btn.innerHTML
       btn.innerHTML = '&#x2705; 已复制'
       setTimeout(() => btn.innerHTML = orig, 1500)
-    }).catch(() => alert('复制失败，请手动选择后 Ctrl+C'))
+    }).catch(() => {
+      // fallback: 传统方式
+      navigator.clipboard.writeText(html).then(() => {
+        const btn = $('gs-copy-btn')
+        const orig = btn.innerHTML
+        btn.innerHTML = '&#x2705; 已复制'
+        setTimeout(() => btn.innerHTML = orig, 1500)
+      }).catch(() => alert('复制失败，请手动选择后 Ctrl+C'))
+    })
   })
 
   // 字体选择
